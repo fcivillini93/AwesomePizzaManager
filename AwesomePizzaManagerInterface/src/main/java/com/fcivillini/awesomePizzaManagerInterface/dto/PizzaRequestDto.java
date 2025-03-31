@@ -13,5 +13,5 @@ public class PizzaRequestDto {
     private String name;
 
     @Schema(description = "Order status of the pizza")
-    private OrderStatusDto orderStatusDto;
+    private OrderStatusDto orderStatus;
 }

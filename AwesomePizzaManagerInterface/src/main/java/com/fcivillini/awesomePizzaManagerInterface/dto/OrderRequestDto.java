@@ -18,8 +18,11 @@ package com.fcivillini.awesomePizzaManagerInterface.dto;
         @Schema(description = "User name", example = "John Doe")
         private String userName;
 
+        @Schema(description = "phone number", example = "333-333-3333")
+        private String phoneNumber;
+
         @Schema(description = "Order status")
-        private OrderStatusDto orderStatusDto;
+        private OrderStatusDto orderStatus;
 
         @Schema(description = "List of pizzas in the order")
         private Collection<PizzaRequestDto> pizzaList;
