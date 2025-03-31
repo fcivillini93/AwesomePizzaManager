@@ -10,6 +10,7 @@
 
     <modules>
         <module>AwesomePizzaManagerInterface</module>
+        <module>AwesomePizzaManagerRepository</module>
         <module>AwesomePizzaManagerCore</module>
         <module>AwesomePizzaManagerController</module>
         <module>AwesomePizzaManagerBoot</module>

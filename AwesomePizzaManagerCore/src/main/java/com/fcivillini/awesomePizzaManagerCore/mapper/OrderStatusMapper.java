@@ -3,6 +3,7 @@ package com.fcivillini.awesomePizzaManagerCore.mapper;
 import com.fcivillini.awesomePizzaManagerCore.model.OrderStatus;
 import com.fcivillini.awesomePizzaManagerInterface.dto.OrderRequestDto;
 import com.fcivillini.awesomePizzaManagerInterface.dto.OrderStatusDto;
+import dto.OrderStatusDao;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
@@ -15,4 +16,7 @@ public interface OrderStatusMapper {
     OrderStatusDto toDto(OrderStatus orderStatus);
     OrderStatus fromDto(OrderStatusDto orderStatus);
 
+
+    OrderStatusDao toDao(OrderStatus orderStatus);
+    OrderStatus fromDao(OrderStatusDao orderStatus);
 }

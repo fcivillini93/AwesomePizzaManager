@@ -7,6 +7,9 @@ import com.fcivillini.awesomePizzaManagerCore.model.PizzaRequest;
 import com.fcivillini.awesomePizzaManagerInterface.dto.OrderRequestDto;
 import com.fcivillini.awesomePizzaManagerInterface.dto.OrderStatusDto;
 import com.fcivillini.awesomePizzaManagerInterface.dto.PizzaRequestDto;
+import dto.OrderRequestDao;
+import dto.OrderStatusDao;
+import dto.PizzaRequestDao;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,5 +78,58 @@ class OrderRequestMapperTest {
                         .setCreationDate(LocalDateTime.of(2020, 1, 1, 0, 0))
                         .setUpdateDate(LocalDateTime.of(2020, 1, 1, 1, 0)),
                 mapper.fromDto(orderRequest));
+    }
+
+    @Test
+    void test_toDAO() {
+        OrderRequest orderRequest = new OrderRequest()
+                .setId("id")
+                .setUserName("user")
+                .setPhoneNumber("phoneNumber")
+                .setOrderStatus(OrderStatus.PENDING)
+                .setPizzaList(asList(
+                        new PizzaRequest().setName("Margherita").setOrderStatus(OrderStatus.PENDING)
+                ))
+                .setCreationDate(LocalDateTime.of(2020, 1, 1, 0, 0))
+                .setUpdateDate(LocalDateTime.of(2020, 1, 1, 1, 0));
+
+        assertEquals(new OrderRequestDao()
+                        .setId("id")
+                        .setUserName("user")
+                        .setPhoneNumber("phoneNumber")
+                        .setOrderStatus(OrderStatusDao.PENDING)
+                        .setPizzaList(asList(
+                                new PizzaRequestDao().setName("Margherita").setOrderStatus(OrderStatusDao.PENDING)
+                        ))
+                        .setCreationDate(LocalDateTime.of(2020, 1, 1, 0, 0))
+                        .setUpdateDate(LocalDateTime.of(2020, 1, 1, 1, 0)),
+                mapper.toDao(orderRequest));
+    }
+
+    @Test
+    void test_fromDao() {
+
+        OrderRequestDao orderRequest = new OrderRequestDao()
+                .setId("id")
+                .setUserName("user")
+                .setPhoneNumber("phoneNumber")
+                .setOrderStatus(OrderStatusDao.PENDING)
+                .setPizzaList(asList(
+                        new PizzaRequestDao().setName("Margherita").setOrderStatus(OrderStatusDao.PENDING)
+                ))
+                .setCreationDate(LocalDateTime.of(2020, 1, 1, 0, 0))
+                .setUpdateDate(LocalDateTime.of(2020, 1, 1, 1, 0));
+
+        assertEquals(new OrderRequest()
+                        .setId("id")
+                        .setUserName("user")
+                        .setPhoneNumber("phoneNumber")
+                        .setOrderStatus(OrderStatus.PENDING)
+                        .setPizzaList(asList(
+                                new PizzaRequest().setName("Margherita").setOrderStatus(OrderStatus.PENDING)
+                        ))
+                        .setCreationDate(LocalDateTime.of(2020, 1, 1, 0, 0))
+                        .setUpdateDate(LocalDateTime.of(2020, 1, 1, 1, 0)),
+                mapper.fromDao(orderRequest));
     }
 }

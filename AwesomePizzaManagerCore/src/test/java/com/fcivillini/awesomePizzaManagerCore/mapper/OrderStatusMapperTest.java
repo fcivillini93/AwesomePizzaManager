@@ -2,6 +2,7 @@ package com.fcivillini.awesomePizzaManagerCore.mapper;
 
 import com.fcivillini.awesomePizzaManagerCore.model.OrderStatus;
 import com.fcivillini.awesomePizzaManagerInterface.dto.OrderStatusDto;
+import dto.OrderStatusDao;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -28,5 +29,26 @@ class OrderStatusMapperTest {
         assertEquals(OrderStatus.TO_PAY, mapper.fromDto(OrderStatusDto.TO_PAY));
         assertEquals(OrderStatus.FINISHED, mapper.fromDto(OrderStatusDto.FINISHED));
         assertEquals(OrderStatus.CANCELED, mapper.fromDto(OrderStatusDto.CANCELED));
+    }
+
+
+    @Test
+    void test_toDao() {
+        assertEquals(OrderStatusDao.PENDING, mapper.toDao(OrderStatus.PENDING));
+        assertEquals(OrderStatusDao.IN_PROGRESS, mapper.toDao(OrderStatus.IN_PROGRESS));
+        assertEquals(OrderStatusDao.READY, mapper.toDao(OrderStatus.READY));
+        assertEquals(OrderStatusDao.TO_PAY, mapper.toDao(OrderStatus.TO_PAY));
+        assertEquals(OrderStatusDao.FINISHED, mapper.toDao(OrderStatus.FINISHED));
+        assertEquals(OrderStatusDao.CANCELED, mapper.toDao(OrderStatus.CANCELED));
+    }
+
+    @Test
+    void test_fromDao() {
+        assertEquals(OrderStatus.PENDING, mapper.fromDao(OrderStatusDao.PENDING));
+        assertEquals(OrderStatus.IN_PROGRESS, mapper.fromDao(OrderStatusDao.IN_PROGRESS));
+        assertEquals(OrderStatus.READY, mapper.fromDao(OrderStatusDao.READY));
+        assertEquals(OrderStatus.TO_PAY, mapper.fromDao(OrderStatusDao.TO_PAY));
+        assertEquals(OrderStatus.FINISHED, mapper.fromDao(OrderStatusDao.FINISHED));
+        assertEquals(OrderStatus.CANCELED, mapper.fromDao(OrderStatusDao.CANCELED));
     }
 }
