@@ -6,7 +6,7 @@
 /.idea/
 *.factorypath
 
-/*/target/
-*/target/
+target/
+
 /logs/
-/.idea/
+
