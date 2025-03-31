@@ -1,8 +1,11 @@
 package com.fcivillini.awesomePizzaManagerController.controller;
 
 import com.fcivillini.awesomePizzaManagerInterface.dto.OrderRequestDto;
+import com.fcivillini.awesomePizzaManagerInterface.exc.PizzaException;
 import com.fcivillini.awesomePizzaManagerInterface.provider.CustomerPizzaOrderProvider;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
@@ -11,22 +14,23 @@ public class CustomerPizzaOrderController implements CustomerPizzaOrderProvider 
 
 
     @Override
-    public OrderRequestDto createOrder(OrderRequestDto orderRequestDto) {
+    public ResponseEntity<String> createOrder(OrderRequestDto orderRequestDto) throws PizzaException {
         log.info("Creating order: {}", orderRequestDto);
         // Implement the logic to create an order
-        return orderRequestDto;
+        throw new PizzaException("todo", HttpStatus.NOT_IMPLEMENTED);
     }
 
     @Override
-    public OrderRequestDto getOrder(String orderId) {
+    public ResponseEntity<OrderRequestDto> getOrder(String orderId) throws PizzaException {
         log.info("Retrieving order with ID: {}", orderId);
         // Implement the logic to retrieve an order by ID
-        return new OrderRequestDto(); // Return a dummy order for now
+        throw new PizzaException("todo", HttpStatus.NOT_IMPLEMENTED);
     }
 
     @Override
-    public void payOrder(String orderId) {
+    public ResponseEntity<Void> payOrder(String orderId) throws PizzaException {
         log.info("Paying for order with ID: {}", orderId);
         // Implement the logic to mark an order as paid
+        throw new PizzaException("todo", HttpStatus.NOT_IMPLEMENTED);
     }
 }
