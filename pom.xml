@@ -4,12 +4,16 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.fcivillini</groupId>
     <artifactId>AwesomePizzaManager</artifactId>
-    <name>Archetype - AwesomePizzaManager</name>
-    <modules>
-        <module>AwesomePizzaManagerInterface</module>
-    </modules>
+    <name>AwesomePizzaManager</name>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
+
+    <modules>
+        <module>AwesomePizzaManagerInterface</module>
+        <module>AwesomePizzaManagerCore</module>
+        <module>AwesomePizzaManagerController</module>
+        <module>AwesomePizzaManagerBoot</module>
+    </modules>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

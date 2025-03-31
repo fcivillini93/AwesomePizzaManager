@@ -10,10 +10,16 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>AwesomePizzaManagerInterface</artifactId>
+    <artifactId>AwesomePizzaManagerController</artifactId>
     <version>1.0.0-SNAPSHOT</version>
 
     <dependencies>
+
+        <dependency>
+            <groupId>com.fcivillini</groupId>
+            <artifactId>AwesomePizzaManagerCore</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
 
     </dependencies>
 
