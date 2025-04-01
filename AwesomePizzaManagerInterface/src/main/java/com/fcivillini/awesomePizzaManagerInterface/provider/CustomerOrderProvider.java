@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "Customer Pizza Order", description = "API for managing customer pizza orders")
 @RequestMapping("api/v1/customer")
-public interface CustomerPizzaOrderProvider {
+public interface CustomerOrderProvider {
 
     @Operation(summary = "Create a new order", description = "Creates a new pizza order for the customer")
     @PutMapping("/createOrder")

@@ -21,7 +21,7 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class CustomerPizzaOrderControllerTest {
+class CustomerOrderControllerTest {
 
     @Mock
     private OrderRequestMapper orderRequestMapper;
@@ -33,7 +33,7 @@ class CustomerPizzaOrderControllerTest {
     private OrderRequestManagerValidator orderRequestManagerValidator;
 
     @InjectMocks
-    private CustomerPizzaOrderController customerPizzaOrderController;
+    private CustomerOrderController customerOrderController;
 
     @BeforeEach
     void setUp() {
@@ -48,7 +48,7 @@ class CustomerPizzaOrderControllerTest {
         OrderRequest orderQuest = new OrderRequest().setUserName("user");
         when(orderRequestMapper.fromDto(orderRequestDto)).thenReturn(orderQuest);
         when(orderRequestManagerService.create(orderQuest)).thenReturn("id-1");
-        assertEquals(new ResponseEntity<>("id-1", HttpStatus.CREATED), customerPizzaOrderController.createOrder(orderRequestDto));
+        assertEquals(new ResponseEntity<>("id-1", HttpStatus.CREATED), customerOrderController.createOrder(orderRequestDto));
 
     }
 
@@ -59,7 +59,7 @@ class CustomerPizzaOrderControllerTest {
         OrderRequestDto orderRequestDto = new OrderRequestDto().setId("orderId");
         when(orderRequestManagerService.findOrder("orderId")).thenReturn(orderRequest);
         when(orderRequestMapper.toDto(orderRequest)).thenReturn(orderRequestDto);
-        assertEquals(new ResponseEntity(orderRequestDto, HttpStatus.OK), customerPizzaOrderController.getOrder("orderId"));
+        assertEquals(new ResponseEntity(orderRequestDto, HttpStatus.OK), customerOrderController.getOrder("orderId"));
     }
 
 
@@ -67,6 +67,6 @@ class CustomerPizzaOrderControllerTest {
     @SneakyThrows
     void test_payOrder() {
         doNothing().when(orderRequestManagerService).payOrder("orderId");
-        assertEquals(new ResponseEntity(HttpStatus.OK), customerPizzaOrderController.payOrder("orderId"));
+        assertEquals(new ResponseEntity(HttpStatus.OK), customerOrderController.payOrder("orderId"));
     }
 }

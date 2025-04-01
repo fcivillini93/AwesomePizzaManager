@@ -5,7 +5,7 @@ import com.fcivillini.awesomePizzaManagerCore.service.OrderRequestManagerService
 import com.fcivillini.awesomePizzaManagerCore.validator.OrderRequestManagerValidator;
 import com.fcivillini.awesomePizzaManagerInterface.dto.OrderRequestDto;
 import com.fcivillini.awesomePizzaManagerInterface.exc.PizzaException;
-import com.fcivillini.awesomePizzaManagerInterface.provider.CustomerPizzaOrderProvider;
+import com.fcivillini.awesomePizzaManagerInterface.provider.CustomerOrderProvider;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RestController
-public class CustomerPizzaOrderController implements CustomerPizzaOrderProvider {
+public class CustomerOrderController implements CustomerOrderProvider {
 
     @Autowired
     private OrderRequestMapper orderRequestMapper;

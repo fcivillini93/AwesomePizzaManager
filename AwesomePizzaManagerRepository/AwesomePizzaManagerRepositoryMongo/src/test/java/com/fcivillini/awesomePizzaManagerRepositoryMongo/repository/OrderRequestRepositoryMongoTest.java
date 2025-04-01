@@ -4,13 +4,16 @@ import com.fcivillini.awesomePizzaManagerRepositoryInterface.dao.OrderRequestDao
 import com.fcivillini.awesomePizzaManagerRepositoryInterface.dao.OrderStatusDao;
 import com.fcivillini.awesomePizzaManagerRepositoryInterface.dao.PizzaRequestDao;
 import com.fcivillini.awesomePizzaManagerRepositoryMongo.entity.OrderRequestMongo;
+import com.fcivillini.awesomePizzaManagerRepositoryMongo.model.OrderStatusMongo;
 import com.fcivillini.awesomePizzaManagerRepositoryMongo.util.AbstractMongoTest;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -69,5 +72,25 @@ class OrderRequestRepositoryMongoTest extends AbstractMongoTest {
         Optional<OrderRequestDao> result = repository.findById("id-1");
         assertTrue(result.isPresent());
         assertEquals("id-1", result.get().getId());
+    }
+
+    @Test
+    void test_findFirstByCreationDate() {
+        springRepository.save(new OrderRequestMongo().setUserName("user-1").setOrderStatus(OrderStatusMongo.PENDING)
+                .setReservationTime(Date.from(LocalDateTime.of(2020, 1, 1, 1, 0).atZone(ZoneId.systemDefault()).toInstant())));
+        springRepository.save(new OrderRequestMongo().setUserName("user-2").setOrderStatus(OrderStatusMongo.PENDING)
+                .setReservationTime(Date.from(LocalDateTime.of(2020, 1, 1, 1, 10).atZone(ZoneId.systemDefault()).toInstant())));
+        springRepository.save(new OrderRequestMongo().setUserName("user-3").setOrderStatus(OrderStatusMongo.PENDING)
+                .setReservationTime(Date.from(LocalDateTime.of(2020, 1, 1, 1, 20).atZone(ZoneId.systemDefault()).toInstant())));
+        assertEquals(3, springRepository.count());
+
+        Optional<OrderRequestDao> result = repository.findFirstByCreationDate(
+                LocalDateTime.of(2020, 1, 1, 1, 5),
+                LocalDateTime.of(2020, 1, 1, 1, 25),
+                OrderStatusDao.PENDING);
+
+        assertTrue(result.isPresent());
+        assertEquals("user-2", result.get().getUserName());
+
     }
 }
