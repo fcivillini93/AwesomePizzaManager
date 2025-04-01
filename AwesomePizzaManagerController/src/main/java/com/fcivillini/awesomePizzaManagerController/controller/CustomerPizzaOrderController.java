@@ -1,10 +1,13 @@
 package com.fcivillini.awesomePizzaManagerController.controller;
 
+import com.fcivillini.awesomePizzaManagerCore.mapper.OrderRequestMapper;
+import com.fcivillini.awesomePizzaManagerCore.service.AwesomePizzaManagerService;
 import com.fcivillini.awesomePizzaManagerInterface.dto.OrderRequestDto;
 import com.fcivillini.awesomePizzaManagerInterface.exc.PizzaException;
 import com.fcivillini.awesomePizzaManagerInterface.provider.CustomerPizzaOrderProvider;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,12 +16,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class CustomerPizzaOrderController implements CustomerPizzaOrderProvider {
 
+    @Autowired
+    private OrderRequestMapper orderRequestMapper;
+
+    @Autowired
+    private AwesomePizzaManagerService awesomePizzaManagerService;
+
 
     @Override
     public ResponseEntity<String> createOrder(@Valid final OrderRequestDto orderRequestDto) throws PizzaException {
-        log.info("Creating order: {}", orderRequestDto);
-        // Implement the logic to create an order
-        throw new PizzaException("todo", HttpStatus.NOT_IMPLEMENTED);
+        return new ResponseEntity<>(awesomePizzaManagerService.create(orderRequestMapper.fromDto(orderRequestDto)) , HttpStatus.CREATED);
     }
 
     @Override
