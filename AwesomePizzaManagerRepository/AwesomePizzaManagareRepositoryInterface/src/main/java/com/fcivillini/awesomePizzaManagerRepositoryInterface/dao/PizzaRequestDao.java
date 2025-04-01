@@ -7,6 +7,8 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 public class PizzaRequestDao {
 
+    private String id;
+
     private String name;
 
     private OrderStatusDao orderStatus;

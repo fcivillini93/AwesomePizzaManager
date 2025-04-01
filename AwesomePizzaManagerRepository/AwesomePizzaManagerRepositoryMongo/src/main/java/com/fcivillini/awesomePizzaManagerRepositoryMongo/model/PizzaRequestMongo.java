@@ -7,6 +7,8 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 public class PizzaRequestMongo {
 
+    private String id;
+
     private String name;
 
     private OrderStatusMongo orderStatus;

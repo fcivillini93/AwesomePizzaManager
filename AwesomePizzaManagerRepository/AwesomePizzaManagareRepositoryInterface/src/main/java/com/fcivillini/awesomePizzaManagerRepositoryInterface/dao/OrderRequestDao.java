@@ -18,6 +18,8 @@ public class OrderRequestDao {
 
     private OrderStatusDao orderStatus;
 
+    private LocalDateTime reservationTime;
+
     private List<PizzaRequestDao> pizzaList;
 
     private LocalDateTime creationDate;

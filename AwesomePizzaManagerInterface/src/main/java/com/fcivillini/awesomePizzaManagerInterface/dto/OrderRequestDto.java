@@ -30,6 +30,10 @@ public class OrderRequestDto {
     @Schema(description = "Order status")
     private OrderStatusDto orderStatus;
 
+    @Schema(description = "Reservation time")
+    @NotNull(message = "Reservation time is required")
+    private LocalDateTime reservationTime;
+
     @Schema(description = "List of pizzas in the order")
     @NotNull(message = "pizzaList is required")
     @NotEmpty(message = "pizzaList is required")

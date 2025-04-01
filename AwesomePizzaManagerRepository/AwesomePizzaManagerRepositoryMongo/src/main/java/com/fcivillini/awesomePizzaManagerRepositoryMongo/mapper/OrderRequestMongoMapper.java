@@ -16,10 +16,12 @@ public interface OrderRequestMongoMapper {
 
     OrderRequestMongoMapper INSTANCE = Mappers.getMapper(OrderRequestMongoMapper.class);
 
+    @Mapping(target = "reservationTime", source = "reservationTime", qualifiedByName = "toLocalDateTime")
     @Mapping(target = "creationDate", source = "creationDate", qualifiedByName = "toLocalDateTime")
     @Mapping(target = "updateDate", source = "updateDate", qualifiedByName = "toLocalDateTime")
     OrderRequestDao toDao(OrderRequestMongo request);
 
+    @Mapping(target = "reservationTime", source = "reservationTime", qualifiedByName = "toDate")
     @Mapping(target = "creationDate", source = "creationDate", qualifiedByName = "toDate")
     @Mapping(target = "updateDate", source = "updateDate", qualifiedByName = "toDate")
     OrderRequestMongo fromDao(OrderRequestDao request);

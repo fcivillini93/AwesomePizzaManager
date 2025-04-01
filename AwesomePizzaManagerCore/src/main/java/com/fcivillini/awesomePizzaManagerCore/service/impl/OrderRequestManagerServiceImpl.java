@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Slf4j
 @Setter
 @Accessors(chain = true)
@@ -28,6 +30,7 @@ public class OrderRequestManagerServiceImpl implements OrderRequestManagerServic
     @Override
     public String create(OrderRequest orderRequest) {
         log.info("start to create order: {}", orderRequest);
+        orderRequest.getPizzaList().forEach(pizza -> pizza.setId(UUID.randomUUID().toString()));
         OrderRequest saved = orderRequestMapper.fromDao(orderRequestRepository.save(orderRequestMapper.toDao(orderRequest)));
         log.info("end to create order: id is [{}]", saved.getId());
         return saved.getId();

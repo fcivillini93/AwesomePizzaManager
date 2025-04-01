@@ -31,13 +31,16 @@ public class OrderRequestMongo {
     protected OrderStatusMongo orderStatus;
 
     @Field
+    private Date reservationTime;
+
+    @Field
     protected List<PizzaRequestMongo> pizzaList;
 
-    @Field(name = "creationDate")
+    @Field
     @CreatedDate
     protected Date creationDate;
 
-    @Field(name = "updateDate")
+    @Field
     @LastModifiedDate
     protected Date updateDate;
 }

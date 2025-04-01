@@ -9,6 +9,9 @@ import lombok.experimental.Accessors;
 @Schema(description = "Pizza request data transfer object")
 public class PizzaRequestDto {
 
+    @Schema(description = "id", example = "id-123")
+    private String id;
+
     @Schema(description = "Pizza name", example = "Margherita")
     private String name;
 

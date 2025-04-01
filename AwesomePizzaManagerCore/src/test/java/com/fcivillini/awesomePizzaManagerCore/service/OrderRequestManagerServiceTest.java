@@ -3,6 +3,7 @@ package com.fcivillini.awesomePizzaManagerCore.service;
 import com.fcivillini.awesomePizzaManagerCore.mapper.OrderRequestMapper;
 import com.fcivillini.awesomePizzaManagerCore.model.OrderRequest;
 import com.fcivillini.awesomePizzaManagerCore.model.OrderStatus;
+import com.fcivillini.awesomePizzaManagerCore.model.PizzaRequest;
 import com.fcivillini.awesomePizzaManagerCore.service.impl.OrderRequestManagerServiceImpl;
 import com.fcivillini.awesomePizzaManagerRepositoryInterface.dao.OrderRequestDao;
 import com.fcivillini.awesomePizzaManagerRepositoryInterface.dao.OrderStatusDao;
@@ -16,8 +17,10 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -40,13 +43,13 @@ class OrderRequestManagerServiceTest {
     @Test
     void test_create() {
 
-        OrderRequest orderQuest = new OrderRequest().setUserName("user");
+        OrderRequest orderRequest = new OrderRequest().setUserName("user").setPizzaList(asList(new PizzaRequest().setName("margherita")));
         OrderRequestDao toSaveDao = new OrderRequestDao().setUserName("user");
         OrderRequestDao savedDao = new OrderRequestDao().setId("id-1").setUserName("user");
-        when(orderRequestMapper.toDao(orderQuest)).thenReturn(toSaveDao);
+        when(orderRequestMapper.toDao(any())).thenReturn(toSaveDao);
         when(orderRequestRepository.save(toSaveDao)).thenReturn(savedDao);
         when(orderRequestMapper.fromDao(savedDao)).thenReturn(new OrderRequest().setId("id-1").setUserName("user"));
-        assertEquals("id-1", awesomePizzaManagerService.create(orderQuest));
+        assertEquals("id-1", awesomePizzaManagerService.create(orderRequest));
 
     }
 

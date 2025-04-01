@@ -18,6 +18,8 @@ public class OrderRequest {
 
     private String phoneNumber;
 
+    private LocalDateTime reservationTime;
+
     private List<PizzaRequest> pizzaList;
 
     private LocalDateTime creationDate;
