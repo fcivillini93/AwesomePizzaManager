@@ -2,8 +2,10 @@ package com.fcivillini.awesomePizzaManagerCore.service;
 
 import com.fcivillini.awesomePizzaManagerCore.mapper.OrderRequestMapper;
 import com.fcivillini.awesomePizzaManagerCore.model.OrderRequest;
+import com.fcivillini.awesomePizzaManagerCore.model.OrderStatus;
 import com.fcivillini.awesomePizzaManagerCore.service.impl.OrderRequestManagerServiceImpl;
 import com.fcivillini.awesomePizzaManagerRepositoryInterface.dao.OrderRequestDao;
+import com.fcivillini.awesomePizzaManagerRepositoryInterface.dao.OrderStatusDao;
 import com.fcivillini.awesomePizzaManagerRepositoryInterface.repository.OrderRequestRepository;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,6 +16,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
@@ -49,12 +52,31 @@ class OrderRequestManagerServiceTest {
 
     @Test
     @SneakyThrows
-    void findOrder() {
+    void test_findOrder() {
         OrderRequest orderRequest = new OrderRequest().setId("order-id");
         OrderRequestDao orderRequestDao = new OrderRequestDao().setId("order-id");
 
         when(orderRequestRepository.findById("order-id")).thenReturn(java.util.Optional.of(orderRequestDao));
         when(orderRequestMapper.fromDao(orderRequestDao)).thenReturn(orderRequest);
         assertEquals(orderRequest, awesomePizzaManagerService.findOrder("order-id"));
+    }
+
+    @Test
+    void test_payOrder() {
+        OrderRequestDao toPayOrderDao = new OrderRequestDao().setId("order-id").setOrderStatus(OrderStatusDao.TO_PAY);
+        OrderRequest toPayOrder = new OrderRequest().setId("order-id").setOrderStatus(OrderStatus.TO_PAY);
+
+        OrderRequestDao payedOrderDao = new OrderRequestDao().setId("order-id").setOrderStatus(OrderStatusDao.FINISHED);
+        OrderRequest payedOrder = new OrderRequest().setId("order-id").setOrderStatus(OrderStatus.FINISHED);
+
+        when(orderRequestRepository.findById("order-id")).thenReturn(java.util.Optional.of(toPayOrderDao));
+        when(orderRequestMapper.fromDao(toPayOrderDao)).thenReturn(toPayOrder);
+
+        when(orderRequestMapper.toDao(payedOrder)).thenReturn(payedOrderDao);
+        when(orderRequestRepository.save(payedOrderDao)).thenReturn(payedOrderDao);
+        when(orderRequestMapper.fromDao(payedOrderDao)).thenReturn(payedOrder);
+
+        assertDoesNotThrow(()->awesomePizzaManagerService.payOrder("order-id"));
+
     }
 }

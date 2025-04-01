@@ -3,6 +3,7 @@ package com.fcivillini.awesomePizzaManagerCore.validator;
 import com.fcivillini.awesomePizzaManagerCore.validator.impl.OrderRequestManagerValidatorImpl;
 import com.fcivillini.awesomePizzaManagerInterface.exc.PizzaException;
 import com.fcivillini.awesomePizzaManagerRepositoryInterface.dao.OrderRequestDao;
+import com.fcivillini.awesomePizzaManagerRepositoryInterface.dao.OrderStatusDao;
 import com.fcivillini.awesomePizzaManagerRepositoryInterface.repository.OrderRequestRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -51,6 +52,26 @@ class OrderRequestManagerValidatorTest {
 
         when(orderRequestRepository.findById("id-1")).thenReturn(Optional.of(new OrderRequestDao()));
         assertDoesNotThrow(() -> orderRequestManagerValidator.validateGetOrderRequest("id-1"));
+
+    }
+
+    @Test
+    void test_validatePayOrderRequest_ko() {
+
+        try {
+            when(orderRequestRepository.findById("id-1")).thenReturn(Optional.of(new OrderRequestDao().setOrderStatus(OrderStatusDao.PENDING)));
+            orderRequestManagerValidator.validatePayOrderRequest("id-1");
+            fail("should throw exception");
+        } catch (PizzaException e) {
+            assertEquals("Order whit id [id-1] is not in [TO_PAY] status", e.getMessage());
+            assertEquals(HttpStatus.BAD_REQUEST, e.getHttpStatus());
+        }
+    }
+
+    @Test
+    void test_validatePayOrderRequest_ok() {
+        when(orderRequestRepository.findById("id-1")).thenReturn(Optional.of(new OrderRequestDao().setOrderStatus(OrderStatusDao.TO_PAY)));
+        assertDoesNotThrow(() -> orderRequestManagerValidator.validatePayOrderRequest("id-1"));
 
     }
 }

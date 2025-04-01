@@ -41,9 +41,9 @@ public class CustomerPizzaOrderController implements CustomerPizzaOrderProvider 
     }
 
     @Override
-    public ResponseEntity<Void> payOrder(String orderId) throws PizzaException {
-        log.info("Paying for order with ID: {}", orderId);
-        // Implement the logic to mark an order as paid
-        throw new PizzaException("todo", HttpStatus.NOT_IMPLEMENTED);
+    public ResponseEntity<Void> payOrder(@NotNull @NotEmpty String orderId) throws PizzaException {
+        orderRequestManagerValidator.validatePayOrderRequest(orderId);
+        orderRequestManagerService.payOrder(orderId);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

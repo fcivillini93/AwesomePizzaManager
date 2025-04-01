@@ -17,6 +17,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -59,6 +60,13 @@ class CustomerPizzaOrderControllerTest {
         when(orderRequestManagerService.findOrder("orderId")).thenReturn(orderRequest);
         when(orderRequestMapper.toDto(orderRequest)).thenReturn(orderRequestDto);
         assertEquals(new ResponseEntity(orderRequestDto, HttpStatus.OK), customerPizzaOrderController.getOrder("orderId"));
+    }
 
+
+    @Test
+    @SneakyThrows
+    void test_payOrder() {
+        doNothing().when(orderRequestManagerService).payOrder("orderId");
+        assertEquals(new ResponseEntity(HttpStatus.OK), customerPizzaOrderController.payOrder("orderId"));
     }
 }

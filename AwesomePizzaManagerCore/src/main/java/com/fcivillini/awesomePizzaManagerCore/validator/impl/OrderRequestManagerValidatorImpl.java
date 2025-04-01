@@ -2,6 +2,8 @@ package com.fcivillini.awesomePizzaManagerCore.validator.impl;
 
 import com.fcivillini.awesomePizzaManagerCore.validator.OrderRequestManagerValidator;
 import com.fcivillini.awesomePizzaManagerInterface.exc.PizzaException;
+import com.fcivillini.awesomePizzaManagerRepositoryInterface.dao.OrderRequestDao;
+import com.fcivillini.awesomePizzaManagerRepositoryInterface.dao.OrderStatusDao;
 import com.fcivillini.awesomePizzaManagerRepositoryInterface.repository.OrderRequestRepository;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -20,9 +22,17 @@ public class OrderRequestManagerValidatorImpl implements OrderRequestManagerVali
     private OrderRequestRepository orderRequestRepository;
 
     @Override
-    public void validateGetOrderRequest(String orderId) throws PizzaException {
+    public OrderRequestDao validateGetOrderRequest(String orderId) throws PizzaException {
 
-        orderRequestRepository.findById(orderId)
+        return orderRequestRepository.findById(orderId)
                 .orElseThrow(() -> new PizzaException(String.format("Order whit id [%s] not found", orderId), HttpStatus.BAD_REQUEST));
+    }
+
+    @Override
+    public void validatePayOrderRequest(String orderId) throws PizzaException {
+        OrderRequestDao orderRequestDao = this.validateGetOrderRequest(orderId);
+        if (!OrderStatusDao.TO_PAY.equals(orderRequestDao.getOrderStatus())) {
+            throw new PizzaException(String.format("Order whit id [%s] is not in [%s] status", orderId, OrderStatusDao.TO_PAY), HttpStatus.BAD_REQUEST);
+        }
     }
 }

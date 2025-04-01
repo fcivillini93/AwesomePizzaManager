@@ -2,6 +2,7 @@ package com.fcivillini.awesomePizzaManagerCore.service.impl;
 
 import com.fcivillini.awesomePizzaManagerCore.mapper.OrderRequestMapper;
 import com.fcivillini.awesomePizzaManagerCore.model.OrderRequest;
+import com.fcivillini.awesomePizzaManagerCore.model.OrderStatus;
 import com.fcivillini.awesomePizzaManagerCore.service.OrderRequestManagerService;
 import com.fcivillini.awesomePizzaManagerInterface.exc.PizzaException;
 import com.fcivillini.awesomePizzaManagerRepositoryInterface.repository.OrderRequestRepository;
@@ -39,5 +40,14 @@ public class OrderRequestManagerServiceImpl implements OrderRequestManagerServic
                 .orElseThrow(() -> new PizzaException(String.format("Order whit id [%s] not found", orderId), HttpStatus.BAD_REQUEST)));
         log.info("end to create order with id [{}]", result.getId());
         return result;
+    }
+
+    @Override
+    public void payOrder(String orderId) throws PizzaException {
+        log.info("start to pay order with id [{}]", orderId);
+        OrderRequest orderRequest = orderRequestMapper.fromDao(orderRequestRepository.findById(orderId)
+                .orElseThrow(() -> new PizzaException(String.format("Order whit id [%s] not found", orderId), HttpStatus.BAD_REQUEST)));
+        OrderRequest updateOrder = orderRequestMapper.fromDao(orderRequestRepository.save(orderRequestMapper.toDao(orderRequest.setOrderStatus(OrderStatus.FINISHED))));
+        log.info("end to update order with id [{}] to status [{}]", updateOrder.getId(), updateOrder.getOrderStatus());
     }
 }
