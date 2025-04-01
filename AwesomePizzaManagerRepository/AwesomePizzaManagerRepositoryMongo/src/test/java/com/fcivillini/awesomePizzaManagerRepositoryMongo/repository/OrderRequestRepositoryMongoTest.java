@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.ZoneId;
 import java.util.List;
+import java.util.Optional;
 
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.*;
@@ -58,5 +59,15 @@ class OrderRequestRepositoryMongoTest extends AbstractMongoTest {
         assertEquals(result.getCreationDate(), all.get(0).getCreationDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
         assertEquals(result.getUpdateDate(), all.get(0).getUpdateDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
 
+    }
+
+    @Test
+    void test_findById() {
+        springRepository.save(new OrderRequestMongo().setId("id-1"));
+        assertEquals(Optional.empty(), repository.findById("fake-id"));
+
+        Optional<OrderRequestDao> result = repository.findById("id-1");
+        assertTrue(result.isPresent());
+        assertEquals("id-1", result.get().getId());
     }
 }

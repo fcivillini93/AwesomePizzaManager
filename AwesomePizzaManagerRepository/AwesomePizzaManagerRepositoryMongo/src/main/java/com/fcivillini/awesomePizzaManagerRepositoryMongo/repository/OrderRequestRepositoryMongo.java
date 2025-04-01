@@ -4,8 +4,11 @@ import com.fcivillini.awesomePizzaManagerRepositoryInterface.dao.OrderRequestDao
 import com.fcivillini.awesomePizzaManagerRepositoryInterface.repository.OrderRequestRepository;
 import com.fcivillini.awesomePizzaManagerRepositoryMongo.mapper.OrderRequestMongoMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import java.util.Optional;
 
 @Slf4j
 @Repository
@@ -24,6 +27,16 @@ public class OrderRequestRepositoryMongo implements OrderRequestRepository {
             return null;
         }
         return mapper.toDao(springRepository.save(mapper.fromDao(orderRequest)));
+    }
+
+    @Override
+    public Optional<OrderRequestDao> findById(String orderId) {
+        if (StringUtils.isAllBlank(orderId)) {
+            log.warn("orderId is null");
+            return Optional.empty();
+        }
+        return springRepository.findById(orderId)
+                .map(order -> mapper.toDao(order));
     }
 
 }

@@ -1,11 +1,14 @@
 package com.fcivillini.awesomePizzaManagerController.controller;
 
 import com.fcivillini.awesomePizzaManagerCore.mapper.OrderRequestMapper;
-import com.fcivillini.awesomePizzaManagerCore.service.AwesomePizzaManagerService;
+import com.fcivillini.awesomePizzaManagerCore.service.OrderRequestManagerService;
+import com.fcivillini.awesomePizzaManagerCore.validator.OrderRequestManagerValidator;
 import com.fcivillini.awesomePizzaManagerInterface.dto.OrderRequestDto;
 import com.fcivillini.awesomePizzaManagerInterface.exc.PizzaException;
 import com.fcivillini.awesomePizzaManagerInterface.provider.CustomerPizzaOrderProvider;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,19 +23,21 @@ public class CustomerPizzaOrderController implements CustomerPizzaOrderProvider 
     private OrderRequestMapper orderRequestMapper;
 
     @Autowired
-    private AwesomePizzaManagerService awesomePizzaManagerService;
+    private OrderRequestManagerService orderRequestManagerService;
+
+    @Autowired
+    private OrderRequestManagerValidator orderRequestManagerValidator;
 
 
     @Override
     public ResponseEntity<String> createOrder(@Valid final OrderRequestDto orderRequestDto) throws PizzaException {
-        return new ResponseEntity<>(awesomePizzaManagerService.create(orderRequestMapper.fromDto(orderRequestDto)) , HttpStatus.CREATED);
+        return new ResponseEntity<>(orderRequestManagerService.create(orderRequestMapper.fromDto(orderRequestDto)), HttpStatus.CREATED);
     }
 
     @Override
-    public ResponseEntity<OrderRequestDto> getOrder(String orderId) throws PizzaException {
-        log.info("Retrieving order with ID: {}", orderId);
-        // Implement the logic to retrieve an order by ID
-        throw new PizzaException("todo", HttpStatus.NOT_IMPLEMENTED);
+    public ResponseEntity<OrderRequestDto> getOrder(@NotNull @NotEmpty String orderId) throws PizzaException {
+        orderRequestManagerValidator.validateGetOrderRequest(orderId);
+        return new ResponseEntity<>(orderRequestMapper.toDto(orderRequestManagerService.findOrder(orderId)), HttpStatus.OK);
     }
 
     @Override

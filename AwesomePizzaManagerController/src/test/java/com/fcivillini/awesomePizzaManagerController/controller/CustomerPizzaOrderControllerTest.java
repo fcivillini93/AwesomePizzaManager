@@ -2,9 +2,9 @@ package com.fcivillini.awesomePizzaManagerController.controller;
 
 import com.fcivillini.awesomePizzaManagerCore.mapper.OrderRequestMapper;
 import com.fcivillini.awesomePizzaManagerCore.model.OrderRequest;
-import com.fcivillini.awesomePizzaManagerCore.service.AwesomePizzaManagerService;
+import com.fcivillini.awesomePizzaManagerCore.service.OrderRequestManagerService;
+import com.fcivillini.awesomePizzaManagerCore.validator.OrderRequestManagerValidator;
 import com.fcivillini.awesomePizzaManagerInterface.dto.OrderRequestDto;
-import com.fcivillini.awesomePizzaManagerRepositoryInterface.dao.OrderRequestDao;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,14 +26,17 @@ class CustomerPizzaOrderControllerTest {
     private OrderRequestMapper orderRequestMapper;
 
     @Mock
-    private AwesomePizzaManagerService awesomePizzaManagerService;
+    private OrderRequestManagerService orderRequestManagerService;
+
+    @Mock
+    private OrderRequestManagerValidator orderRequestManagerValidator;
 
     @InjectMocks
     private CustomerPizzaOrderController customerPizzaOrderController;
 
     @BeforeEach
     void setUp() {
-        Mockito.clearInvocations(orderRequestMapper, awesomePizzaManagerService);
+        Mockito.clearInvocations(orderRequestMapper, orderRequestManagerService);
     }
 
     @Test
@@ -43,8 +46,19 @@ class CustomerPizzaOrderControllerTest {
         OrderRequestDto orderRequestDto = new OrderRequestDto().setUserName("user");
         OrderRequest orderQuest = new OrderRequest().setUserName("user");
         when(orderRequestMapper.fromDto(orderRequestDto)).thenReturn(orderQuest);
-        when(awesomePizzaManagerService.create(orderQuest)).thenReturn("id-1");
+        when(orderRequestManagerService.create(orderQuest)).thenReturn("id-1");
         assertEquals(new ResponseEntity<>("id-1", HttpStatus.CREATED), customerPizzaOrderController.createOrder(orderRequestDto));
+
+    }
+
+    @Test
+    @SneakyThrows
+    void test_findById() {
+        OrderRequest orderRequest = new OrderRequest().setId("orderId");
+        OrderRequestDto orderRequestDto = new OrderRequestDto().setId("orderId");
+        when(orderRequestManagerService.findOrder("orderId")).thenReturn(orderRequest);
+        when(orderRequestMapper.toDto(orderRequest)).thenReturn(orderRequestDto);
+        assertEquals(new ResponseEntity(orderRequestDto, HttpStatus.OK), customerPizzaOrderController.getOrder("orderId"));
 
     }
 }
