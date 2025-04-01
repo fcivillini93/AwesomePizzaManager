@@ -1,4 +1,4 @@
-package dto;
+package com.fcivillini.awesomePizzaManagerRepositoryInterface.dao;
 
 public enum OrderStatusDao {
     PENDING,

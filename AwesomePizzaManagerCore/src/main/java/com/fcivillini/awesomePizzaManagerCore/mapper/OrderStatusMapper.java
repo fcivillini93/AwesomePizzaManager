@@ -1,11 +1,9 @@
 package com.fcivillini.awesomePizzaManagerCore.mapper;
 
 import com.fcivillini.awesomePizzaManagerCore.model.OrderStatus;
-import com.fcivillini.awesomePizzaManagerInterface.dto.OrderRequestDto;
 import com.fcivillini.awesomePizzaManagerInterface.dto.OrderStatusDto;
-import dto.OrderStatusDao;
+import com.fcivillini.awesomePizzaManagerRepositoryInterface.dao.OrderStatusDao;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring")

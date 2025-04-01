@@ -2,7 +2,7 @@ package com.fcivillini.awesomePizzaManagerCore.mapper;
 
 import com.fcivillini.awesomePizzaManagerCore.model.OrderStatus;
 import com.fcivillini.awesomePizzaManagerInterface.dto.OrderStatusDto;
-import dto.OrderStatusDao;
+import com.fcivillini.awesomePizzaManagerRepositoryInterface.dao.OrderStatusDao;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

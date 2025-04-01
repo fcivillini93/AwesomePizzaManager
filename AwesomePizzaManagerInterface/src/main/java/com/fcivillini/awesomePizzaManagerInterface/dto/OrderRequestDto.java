@@ -5,9 +5,9 @@ package com.fcivillini.awesomePizzaManagerInterface.dto;
     import lombok.experimental.Accessors;
 
     import java.time.LocalDateTime;
-    import java.util.Collection;
+    import java.util.List;
 
-    @Data
+@Data
     @Accessors(chain = true)
     @Schema(description = "Order request data transfer object")
     public class OrderRequestDto {
@@ -25,7 +25,7 @@ package com.fcivillini.awesomePizzaManagerInterface.dto;
         private OrderStatusDto orderStatus;
 
         @Schema(description = "List of pizzas in the order")
-        private Collection<PizzaRequestDto> pizzaList;
+        private List<PizzaRequestDto> pizzaList;
 
         @Schema(description = "Order creation date and time")
         private LocalDateTime creationDate;

@@ -18,6 +18,12 @@
         <!--awesomePizza-->
         <dependency>
             <groupId>com.fcivillini</groupId>
+            <artifactId>AwesomePizzaManagerRepositoryMongo</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fcivillini</groupId>
             <artifactId>AwesomePizzaManagerController</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
@@ -37,6 +43,12 @@
                     <artifactId>jackson-core</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
         </dependency>
 
     </dependencies>

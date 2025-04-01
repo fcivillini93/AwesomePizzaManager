@@ -4,7 +4,7 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 
 import java.time.LocalDateTime;
-import java.util.Collection;
+import java.util.List;
 
 @Data
 @Accessors(chain = true)
@@ -18,7 +18,7 @@ public class OrderRequest {
 
     private String phoneNumber;
 
-    private Collection<PizzaRequest> pizzaList;
+    private List<PizzaRequest> pizzaList;
 
     private LocalDateTime creationDate;
 

@@ -2,7 +2,7 @@ package com.fcivillini.awesomePizzaManagerCore.mapper;
 
 import com.fcivillini.awesomePizzaManagerCore.model.OrderRequest;
 import com.fcivillini.awesomePizzaManagerInterface.dto.OrderRequestDto;
-import dto.OrderRequestDao;
+import com.fcivillini.awesomePizzaManagerRepositoryInterface.dao.OrderRequestDao;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

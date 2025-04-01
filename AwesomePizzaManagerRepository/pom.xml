@@ -16,6 +16,7 @@
 
     <modules>
         <module>AwesomePizzaManagareRepositoryInterface</module>
+        <module>AwesomePizzaManagerRepositoryMongo</module>
     </modules>
 
     <dependencies>
