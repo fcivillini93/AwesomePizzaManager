@@ -1,0 +1,26 @@
+version: "3.7"
+
+networks:
+  pizza-suite:
+    external: false
+    driver: bridge
+    name: pizza-suite
+
+volumes:
+  pizza-import-mongo-data:
+    driver: local
+
+services:
+   pizza-import-mongo:
+     image: mongo:7.0.14
+     container_name: pizza-import-mongo
+     environment:
+       MONGO_INITDB_ROOT_USERNAME: pizza-user
+       MONGO_INITDB_ROOT_PASSWORD: pizza-password
+       MONGO_INITDB_DATABASE: pizza-awesome-db
+     volumes:
+       - pizza-import-mongo-data:/data/db
+     ports:
+       - "27017:27017"
+     networks:
+       - pizza-suite
