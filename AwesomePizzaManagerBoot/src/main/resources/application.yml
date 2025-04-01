@@ -21,3 +21,9 @@ springdoc:
   swagger-ui:
     enabled: true
     path: /swagger-ui.html
+
+#MongoDB connection
+spring:
+  data:
+    mongodb:
+      uri: mongodb://pizza-user:pizza-password@localhost:27017/pizza-awesome-db?authSource=admin
