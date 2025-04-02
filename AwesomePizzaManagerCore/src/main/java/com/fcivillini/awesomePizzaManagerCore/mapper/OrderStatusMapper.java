@@ -12,9 +12,11 @@ public interface OrderStatusMapper {
     public OrderStatusMapper INSTANCE = Mappers.getMapper(OrderStatusMapper.class);
 
     OrderStatusDto toDto(OrderStatus orderStatus);
+
     OrderStatus fromDto(OrderStatusDto orderStatus);
 
 
     OrderStatusDao toDao(OrderStatus orderStatus);
+
     OrderStatus fromDao(OrderStatusDao orderStatus);
 }

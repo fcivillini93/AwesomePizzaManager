@@ -14,6 +14,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+/**
+ * Implementation of the OrderRequestManagerValidator interface.
+ * Provides methods to validate and retrieve order requests.
+ */
 @Slf4j
 @Setter
 @Accessors(chain = true)
@@ -26,18 +30,30 @@ public class OrderRequestManagerValidatorImpl implements OrderRequestManagerVali
     @Autowired
     private OrderRequestRepository orderRequestRepository;
 
+    /**
+     * Validates and retrieves an order request by its ID.
+     *
+     * @param orderId the ID of the order request to retrieve
+     * @return the validated order request
+     * @throws PizzaException if the order request is not found
+     */
     @Override
     public OrderRequest validateGetOrderRequest(String orderId) throws PizzaException {
-
         return orderRequestMapper.fromDao(orderRequestRepository.findById(orderId)
-                .orElseThrow(() -> new PizzaException(String.format("Order whit id [%s] not found", orderId), HttpStatus.BAD_REQUEST)));
+                .orElseThrow(() -> new PizzaException(String.format("Order with id [%s] not found", orderId), HttpStatus.BAD_REQUEST)));
     }
 
+    /**
+     * Validates the payment of an order request by its ID.
+     *
+     * @param orderId the ID of the order request to validate for payment
+     * @throws PizzaException if the order request is not found or is not in the TO_PAY status
+     */
     @Override
     public void validatePayOrderRequest(String orderId) throws PizzaException {
         OrderRequest orderRequest = this.validateGetOrderRequest(orderId);
         if (!OrderStatus.TO_PAY.equals(orderRequest.getOrderStatus())) {
-            throw new PizzaException(String.format("Order whit id [%s] is not in [%s] status", orderId, OrderStatusDao.TO_PAY), HttpStatus.BAD_REQUEST);
+            throw new PizzaException(String.format("Order with id [%s] is not in [%s] status", orderId, OrderStatusDao.TO_PAY), HttpStatus.BAD_REQUEST);
         }
     }
 }

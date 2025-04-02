@@ -22,7 +22,6 @@ public class EvolveOrderDto {
     private String pizzaOrderId;
 
     @NotNull(message = "orderStatus is required")
-    @NotEmpty(message = "orderStatus is required")
     @Schema(description = "Status of the order", example = "PENDING")
     private OrderStatusDto orderStatus;
 }

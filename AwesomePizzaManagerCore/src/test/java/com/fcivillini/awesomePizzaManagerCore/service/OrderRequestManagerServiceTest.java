@@ -79,7 +79,7 @@ class OrderRequestManagerServiceTest {
         when(orderRequestRepository.save(payedOrderDao)).thenReturn(payedOrderDao);
         when(orderRequestMapper.fromDao(payedOrderDao)).thenReturn(payedOrder);
 
-        assertDoesNotThrow(()->awesomePizzaManagerService.payOrder("order-id"));
+        assertDoesNotThrow(() -> awesomePizzaManagerService.payOrder("order-id"));
 
     }
 }

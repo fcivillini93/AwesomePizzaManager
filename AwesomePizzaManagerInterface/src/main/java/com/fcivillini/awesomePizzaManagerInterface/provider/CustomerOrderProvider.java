@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 public interface CustomerOrderProvider {
 
     @Operation(summary = "Create a new order", description = "Creates a new pizza order for the customer")
-    @PutMapping("/createOrder")
+    @PostMapping("/createOrder")
     ResponseEntity<String> createOrder(@RequestBody OrderRequestDto orderRequestDto) throws PizzaException;
 
     @Operation(summary = "Get order details", description = "Retrieves the details of an order by its ID")

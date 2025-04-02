@@ -1,0 +1,18 @@
+version: "3.7"
+
+networks:
+  pizza-suite:
+    external: true
+    name: pizza-suite
+
+services:
+  pizza-service:
+    image: awesome-pizza:1.0.0
+    container_name: pizza-service
+    environment:
+      MONGODB_URI: mongodb://pizza-user:pizza-password@pizza-mongo:27017/pizza-awesome-db?authSource=admin
+      INTERVAL_MINUTES: 15
+    ports:
+      - "9000:9000"
+    networks:
+      - pizza-suite

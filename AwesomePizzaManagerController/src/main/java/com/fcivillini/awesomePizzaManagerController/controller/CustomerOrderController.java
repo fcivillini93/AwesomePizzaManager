@@ -7,8 +7,6 @@ import com.fcivillini.awesomePizzaManagerInterface.dto.OrderRequestDto;
 import com.fcivillini.awesomePizzaManagerInterface.exc.PizzaException;
 import com.fcivillini.awesomePizzaManagerInterface.provider.CustomerOrderProvider;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,13 +33,13 @@ public class CustomerOrderController implements CustomerOrderProvider {
     }
 
     @Override
-    public ResponseEntity<OrderRequestDto> getOrder(@NotNull @NotEmpty String orderId) throws PizzaException {
+    public ResponseEntity<OrderRequestDto> getOrder(String orderId) throws PizzaException {
         orderRequestManagerValidator.validateGetOrderRequest(orderId);
         return new ResponseEntity<>(orderRequestMapper.toDto(orderRequestManagerService.findOrder(orderId)), HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<Void> payOrder(@NotNull @NotEmpty String orderId) throws PizzaException {
+    public ResponseEntity<Void> payOrder(String orderId) throws PizzaException {
         orderRequestManagerValidator.validatePayOrderRequest(orderId);
         orderRequestManagerService.payOrder(orderId);
         return new ResponseEntity<>(HttpStatus.OK);

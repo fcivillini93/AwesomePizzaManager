@@ -19,7 +19,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import java.time.LocalDateTime;
 
 import static java.util.Arrays.asList;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ContextConfiguration(classes = AwesomePizzaManagerMapperConfiguration.class)
 @ExtendWith(SpringExtension.class)
@@ -41,15 +41,15 @@ class OrderRequestMapperTest {
                 .setUpdateDate(LocalDateTime.of(2020, 1, 1, 1, 0));
 
         assertEquals(new OrderRequestDto()
-                .setId("id")
-                .setUserName("user")
-                .setPhoneNumber("phoneNumber")
-                .setOrderStatus(OrderStatusDto.PENDING)
-                .setPizzaList(asList(
-                        new PizzaRequestDto().setName("Margherita").setOrderStatus(OrderStatusDto.PENDING)
-                ))
-                .setCreationDate(LocalDateTime.of(2020, 1, 1, 0, 0))
-                .setUpdateDate(LocalDateTime.of(2020, 1, 1, 1, 0)),
+                        .setId("id")
+                        .setUserName("user")
+                        .setPhoneNumber("phoneNumber")
+                        .setOrderStatus(OrderStatusDto.PENDING)
+                        .setPizzaList(asList(
+                                new PizzaRequestDto().setName("Margherita").setOrderStatus(OrderStatusDto.PENDING)
+                        ))
+                        .setCreationDate(LocalDateTime.of(2020, 1, 1, 0, 0))
+                        .setUpdateDate(LocalDateTime.of(2020, 1, 1, 1, 0)),
                 mapper.toDto(orderRequest));
     }
 

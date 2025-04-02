@@ -1,0 +1,14 @@
+# Server Properties
+server:
+  port: ${APPLICATION_PORT}
+  servlet:
+    context-path: ${APPLICATION_PATH}
+
+#MongoDB connection
+spring:
+  data:
+    mongodb:
+      uri: ${MONGODB_URI}
+
+awesomePizzaManager:
+  intervalMinutes: ${INTERVAL_MINUTES}

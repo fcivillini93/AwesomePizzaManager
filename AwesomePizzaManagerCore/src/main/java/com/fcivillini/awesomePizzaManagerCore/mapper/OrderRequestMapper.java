@@ -12,8 +12,10 @@ public interface OrderRequestMapper {
     OrderRequestMapper INSTANCE = Mappers.getMapper(OrderRequestMapper.class);
 
     OrderRequestDto toDto(OrderRequest request);
+
     OrderRequest fromDto(OrderRequestDto request);
 
     OrderRequestDao toDao(OrderRequest request);
+
     OrderRequest fromDao(OrderRequestDao request);
 }

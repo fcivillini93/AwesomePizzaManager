@@ -1,6 +1,5 @@
 package com.fcivillini.awesomePizzaManagerCore.model;
 
-import com.fcivillini.awesomePizzaManagerInterface.dto.OrderStatusDto;
 import lombok.Data;
 import lombok.experimental.Accessors;
 

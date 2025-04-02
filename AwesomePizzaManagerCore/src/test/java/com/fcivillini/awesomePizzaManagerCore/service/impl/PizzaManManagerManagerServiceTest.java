@@ -5,7 +5,6 @@ import com.fcivillini.awesomePizzaManagerCore.model.EvolveOrder;
 import com.fcivillini.awesomePizzaManagerCore.model.OrderRequest;
 import com.fcivillini.awesomePizzaManagerCore.model.OrderStatus;
 import com.fcivillini.awesomePizzaManagerCore.model.PizzaRequest;
-import com.fcivillini.awesomePizzaManagerInterface.dto.PizzaRequestDto;
 import com.fcivillini.awesomePizzaManagerInterface.exc.PizzaException;
 import com.fcivillini.awesomePizzaManagerRepositoryInterface.dao.OrderRequestDao;
 import com.fcivillini.awesomePizzaManagerRepositoryInterface.dao.OrderStatusDao;
@@ -97,16 +96,14 @@ class PizzaManManagerManagerServiceTest {
                 .setOrderStatus(OrderStatus.IN_PROGRESS)
                 .setPizzaList(asList(
                         new PizzaRequest().setId("pizza-1").setName("margherita").setOrderStatus(OrderStatus.IN_PROGRESS)
-                ))
-                ;
+                ));
 
         OrderRequest evolvedOrderRequest = new OrderRequest()
                 .setId("id-1")
                 .setOrderStatus(OrderStatus.TO_PAY)
                 .setPizzaList(asList(
                         new PizzaRequest().setId("pizza-1").setName("margherita").setOrderStatus(OrderStatus.READY)
-                ))
-                ;
+                ));
 
         OrderRequestDao evolvedOrderRequestDao = new OrderRequestDao()
                 .setId("id-1")

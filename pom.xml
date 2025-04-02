@@ -4,8 +4,8 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.fcivillini</groupId>
     <artifactId>AwesomePizzaManager</artifactId>
-    <name>AwesomePizzaManager</name>
-    <version>1.0.0-SNAPSHOT</version>
+    <name>awesome-pizza</name>
+    <version>1.0.0</version>
     <packaging>pom</packaging>
 
     <modules>

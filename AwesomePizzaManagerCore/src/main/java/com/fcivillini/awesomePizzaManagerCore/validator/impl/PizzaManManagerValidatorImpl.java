@@ -19,12 +19,15 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 
+/**
+ * Implementation of the PizzaManManagerValidator interface.
+ * Provides methods to validate and find order requests.
+ */
 @Slf4j
 @Setter
 @Accessors(chain = true)
 @Service
 public class PizzaManManagerValidatorImpl implements PizzaManManagerValidator {
-
 
     @Value("${awesomePizzaManager.intervalMinutes}")
     private Integer intervalMinutes;
@@ -35,6 +38,12 @@ public class PizzaManManagerValidatorImpl implements PizzaManManagerValidator {
     @Autowired
     private OrderRequestMapper orderRequestMapper;
 
+    /**
+     * Finds a new order request within the reservation time interval.
+     *
+     * @return the found order request
+     * @throws PizzaException if no new order is found
+     */
     @Override
     public OrderRequest findNewOrder() throws PizzaException {
         LocalDateTime now = LocalDateTime.now();
@@ -43,6 +52,13 @@ public class PizzaManManagerValidatorImpl implements PizzaManManagerValidator {
         ));
     }
 
+    /**
+     * Validates the evolution of an order request.
+     *
+     * @param evolveOrderDto the evolve order DTO
+     * @return the validated order request
+     * @throws PizzaException if the order or pizza is not found, or if the status evolution is invalid
+     */
     @Override
     public OrderRequest validateEvolveOrder(EvolveOrder evolveOrderDto) throws PizzaException {
         OrderRequest orderRequest = orderRequestMapper.fromDao(orderRequestRepository.findById(evolveOrderDto.getOrderId()).orElseThrow(
@@ -60,6 +76,13 @@ public class PizzaManManagerValidatorImpl implements PizzaManManagerValidator {
         return orderRequest;
     }
 
+    /**
+     * Gets the previous order status level for validation.
+     *
+     * @param orderStatus the current order status
+     * @return the previous order status level
+     * @throws PizzaException if the order status is invalid
+     */
     protected OrderStatus getOrderStatusLevel(OrderStatus orderStatus) throws PizzaException {
         return switch (orderStatus) {
             case IN_PROGRESS -> OrderStatus.PENDING;
@@ -69,13 +92,23 @@ public class PizzaManManagerValidatorImpl implements PizzaManManagerValidator {
         };
     }
 
+    /**
+     * Gets the end reservation time based on the current time and interval.
+     *
+     * @param now the current time
+     * @return the end reservation time
+     */
     protected LocalDateTime getEndReservationTime(LocalDateTime now) {
         return now.plusMinutes(intervalMinutes);
     }
 
+    /**
+     * Gets the start reservation time based on the current time and interval.
+     *
+     * @param now the current time
+     * @return the start reservation time
+     */
     protected LocalDateTime getStartReservationTime(LocalDateTime now) {
         return now.minusMinutes(intervalMinutes);
     }
-
-
 }

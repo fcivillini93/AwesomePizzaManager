@@ -7,7 +7,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -20,7 +20,7 @@ public interface PizzaManProvider {
     ResponseEntity<OrderRequestDto> getNewOrder() throws PizzaException;
 
     @Operation(summary = "Evolve order status", description = "Updates the status of a specific pizza order")
-    @PostMapping("/evolveOrder/")
+    @PutMapping("/evolveOrder/")
     ResponseEntity<OrderRequestDto> evolveOrder(@RequestBody EvolveOrderDto evolveOrderDto) throws PizzaException;
 
 }

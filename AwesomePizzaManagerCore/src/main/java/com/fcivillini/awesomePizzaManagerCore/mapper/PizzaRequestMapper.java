@@ -12,9 +12,11 @@ public interface PizzaRequestMapper {
     public PizzaRequestMapper INSTANCE = Mappers.getMapper(PizzaRequestMapper.class);
 
     PizzaRequestDto toDto(PizzaRequest request);
+
     PizzaRequest fromDto(PizzaRequestDto request);
 
 
     PizzaRequestDao toDao(PizzaRequest request);
+
     PizzaRequest fromDao(PizzaRequestDao request);
 }

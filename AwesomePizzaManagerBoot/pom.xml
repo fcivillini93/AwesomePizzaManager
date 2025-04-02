@@ -6,12 +6,12 @@
     <parent>
         <groupId>com.fcivillini</groupId>
         <artifactId>AwesomePizzaManager</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>1.0.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>AwesomePizzaManagerBoot</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0</version>
 
     <dependencies>
 
@@ -92,7 +92,7 @@
                             </execution>
                         </executions>
                         <configuration>
-                            <repository>305653446094.dkr.ecr.eu-south-1.amazonaws.com/${project.parent.name}
+                            <repository>${project.parent.name}
                             </repository>
                             <tag>${project.parent.version}</tag>
                             <buildArgs>
