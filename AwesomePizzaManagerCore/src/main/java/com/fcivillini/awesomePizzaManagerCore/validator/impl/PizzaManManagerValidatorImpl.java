@@ -22,7 +22,7 @@ import java.time.LocalDateTime;
 public class PizzaManManagerValidatorImpl implements PizzaManManagerValidator {
 
 
-    @Value("${awesomePizzaManagerCore.intervalMinutes}")
+    @Value("${awesomePizzaManager.intervalMinutes}")
     private Integer intervalMinutes;
 
     @Autowired
@@ -37,11 +37,11 @@ public class PizzaManManagerValidatorImpl implements PizzaManManagerValidator {
     }
 
     protected LocalDateTime getEndReservationTime(LocalDateTime now) {
-        return now.minusMinutes(intervalMinutes);
+        return now.plusMinutes(intervalMinutes);
     }
 
     protected LocalDateTime getStartReservationTime(LocalDateTime now) {
-        return now.plusMinutes(intervalMinutes);
+        return now.minusMinutes(intervalMinutes);
     }
 
 

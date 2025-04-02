@@ -14,5 +14,5 @@ public interface PizzaManProvider {
 
     @Operation(summary = "Get new order details", description = "Retrieves the details of a new order")
     @GetMapping("/getNewOrder/")
-    ResponseEntity<OrderRequestDto> getOrder() throws PizzaException;
+    ResponseEntity<OrderRequestDto> getNewOrder() throws PizzaException;
 }

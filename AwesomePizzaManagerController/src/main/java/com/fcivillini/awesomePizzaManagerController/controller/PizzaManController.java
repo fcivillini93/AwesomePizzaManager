@@ -26,7 +26,7 @@ public class PizzaManController implements PizzaManProvider {
     private PizzaManManagerValidator pizzaManManagerValidator;
 
     @Override
-    public ResponseEntity<OrderRequestDto> getOrder() throws PizzaException {
+    public ResponseEntity<OrderRequestDto> getNewOrder() throws PizzaException {
         pizzaManManagerValidator.validateFindNewOrder();
         return new ResponseEntity<>(orderRequestMapper.toDto(pizzaManManagerService.findNewOrder()), HttpStatus.OK);
     }
