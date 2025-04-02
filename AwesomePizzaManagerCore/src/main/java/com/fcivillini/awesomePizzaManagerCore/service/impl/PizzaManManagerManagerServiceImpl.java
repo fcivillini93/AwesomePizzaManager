@@ -1,6 +1,7 @@
 package com.fcivillini.awesomePizzaManagerCore.service.impl;
 
 import com.fcivillini.awesomePizzaManagerCore.mapper.OrderRequestMapper;
+import com.fcivillini.awesomePizzaManagerCore.model.EvolveOrder;
 import com.fcivillini.awesomePizzaManagerCore.model.OrderRequest;
 import com.fcivillini.awesomePizzaManagerCore.service.PizzaManManagerService;
 import com.fcivillini.awesomePizzaManagerInterface.exc.PizzaException;
@@ -41,7 +42,7 @@ public class PizzaManManagerManagerServiceImpl implements PizzaManManagerService
     }
 
     @Override
-    public OrderRequest evolveOrder(OrderRequest orderRequest) {
+    public OrderRequest evolveOrder(OrderRequest orderRequest, EvolveOrder evolveOrder) {
         return null;
     }
 

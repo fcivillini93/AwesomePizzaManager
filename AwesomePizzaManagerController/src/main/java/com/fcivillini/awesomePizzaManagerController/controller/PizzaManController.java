@@ -1,6 +1,8 @@
 package com.fcivillini.awesomePizzaManagerController.controller;
 
+import com.fcivillini.awesomePizzaManagerCore.mapper.EvolveOrderMapper;
 import com.fcivillini.awesomePizzaManagerCore.mapper.OrderRequestMapper;
+import com.fcivillini.awesomePizzaManagerCore.model.EvolveOrder;
 import com.fcivillini.awesomePizzaManagerCore.model.OrderRequest;
 import com.fcivillini.awesomePizzaManagerCore.service.PizzaManManagerService;
 import com.fcivillini.awesomePizzaManagerCore.validator.PizzaManManagerValidator;
@@ -20,6 +22,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class PizzaManController implements PizzaManProvider {
 
     @Autowired
+    private EvolveOrderMapper evolveOrderMapper;
+
+    @Autowired
     private OrderRequestMapper orderRequestMapper;
 
     @Autowired
@@ -36,8 +41,9 @@ public class PizzaManController implements PizzaManProvider {
 
     @Override
     public ResponseEntity<OrderRequestDto> evolveOrder(@Valid EvolveOrderDto evolveOrderDto) throws PizzaException {
-        OrderRequest orderRequest = pizzaManManagerValidator.validateEvolveOrder(evolveOrderDto);
-        return new ResponseEntity<>(orderRequestMapper.toDto(pizzaManManagerService.evolveOrder(orderRequest)), HttpStatus.OK);
+        EvolveOrder evolveOrderRequest = evolveOrderMapper.fromDto(evolveOrderDto);
+        OrderRequest orderRequest = pizzaManManagerValidator.validateEvolveOrder(evolveOrderRequest);
+        return new ResponseEntity<>(orderRequestMapper.toDto(pizzaManManagerService.evolveOrder(orderRequest, evolveOrderRequest)), HttpStatus.OK);
     }
 
 }

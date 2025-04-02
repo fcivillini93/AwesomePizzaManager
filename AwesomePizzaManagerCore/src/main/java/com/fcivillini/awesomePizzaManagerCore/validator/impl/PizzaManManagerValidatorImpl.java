@@ -1,9 +1,9 @@
 package com.fcivillini.awesomePizzaManagerCore.validator.impl;
 
 import com.fcivillini.awesomePizzaManagerCore.mapper.OrderRequestMapper;
+import com.fcivillini.awesomePizzaManagerCore.model.EvolveOrder;
 import com.fcivillini.awesomePizzaManagerCore.model.OrderRequest;
 import com.fcivillini.awesomePizzaManagerCore.validator.PizzaManManagerValidator;
-import com.fcivillini.awesomePizzaManagerInterface.dto.EvolveOrderDto;
 import com.fcivillini.awesomePizzaManagerInterface.exc.PizzaException;
 import com.fcivillini.awesomePizzaManagerRepositoryInterface.dao.OrderStatusDao;
 import com.fcivillini.awesomePizzaManagerRepositoryInterface.repository.OrderRequestRepository;
@@ -42,7 +42,7 @@ public class PizzaManManagerValidatorImpl implements PizzaManManagerValidator {
     }
 
     @Override
-    public OrderRequest validateEvolveOrder(EvolveOrderDto evolveOrderDto) {
+    public OrderRequest validateEvolveOrder(EvolveOrder evolveOrderDto) {
         return null;
     }
 
