@@ -1,5 +1,8 @@
 package com.fcivillini.awesomePizzaManagerCore.validator;
 
+import com.fcivillini.awesomePizzaManagerCore.mapper.OrderRequestMapper;
+import com.fcivillini.awesomePizzaManagerCore.model.OrderRequest;
+import com.fcivillini.awesomePizzaManagerCore.model.OrderStatus;
 import com.fcivillini.awesomePizzaManagerCore.validator.impl.OrderRequestManagerValidatorImpl;
 import com.fcivillini.awesomePizzaManagerInterface.exc.PizzaException;
 import com.fcivillini.awesomePizzaManagerRepositoryInterface.dao.OrderRequestDao;
@@ -23,6 +26,8 @@ import static org.mockito.Mockito.when;
 class OrderRequestManagerValidatorTest {
 
     @Mock
+    private OrderRequestMapper orderRequestMapper;
+    @Mock
     private OrderRequestRepository orderRequestRepository;
 
     @InjectMocks
@@ -30,7 +35,7 @@ class OrderRequestManagerValidatorTest {
 
     @BeforeEach
     void setUp() {
-        Mockito.clearInvocations(orderRequestRepository);
+        Mockito.clearInvocations(orderRequestRepository, orderRequestMapper);
     }
 
     @Test
@@ -49,8 +54,10 @@ class OrderRequestManagerValidatorTest {
 
     @Test
     void test_validateGetOrderRequest_ok() {
-
-        when(orderRequestRepository.findById("id-1")).thenReturn(Optional.of(new OrderRequestDao()));
+        OrderRequest orderRequest = new OrderRequest().setId("id-1");
+        OrderRequestDao orderRequestDao = new OrderRequestDao().setId("id-1");
+        when(orderRequestRepository.findById("id-1")).thenReturn(Optional.of(orderRequestDao));
+        when(orderRequestMapper.fromDao(orderRequestDao)).thenReturn(orderRequest);
         assertDoesNotThrow(() -> orderRequestManagerValidator.validateGetOrderRequest("id-1"));
 
     }
@@ -59,7 +66,10 @@ class OrderRequestManagerValidatorTest {
     void test_validatePayOrderRequest_ko() {
 
         try {
-            when(orderRequestRepository.findById("id-1")).thenReturn(Optional.of(new OrderRequestDao().setOrderStatus(OrderStatusDao.PENDING)));
+            OrderRequest orderRequest = new OrderRequest().setId("id-1").setOrderStatus(OrderStatus.PENDING);
+            OrderRequestDao orderRequestDao = new OrderRequestDao().setId("id-1").setOrderStatus(OrderStatusDao.PENDING);
+            when(orderRequestRepository.findById("id-1")).thenReturn(Optional.of(orderRequestDao));
+            when(orderRequestMapper.fromDao(orderRequestDao)).thenReturn(orderRequest);
             orderRequestManagerValidator.validatePayOrderRequest("id-1");
             fail("should throw exception");
         } catch (PizzaException e) {
@@ -70,7 +80,10 @@ class OrderRequestManagerValidatorTest {
 
     @Test
     void test_validatePayOrderRequest_ok() {
-        when(orderRequestRepository.findById("id-1")).thenReturn(Optional.of(new OrderRequestDao().setOrderStatus(OrderStatusDao.TO_PAY)));
+        OrderRequest orderRequest = new OrderRequest().setId("id-1").setOrderStatus(OrderStatus.TO_PAY);
+        OrderRequestDao orderRequestDao = new OrderRequestDao().setId("id-1").setOrderStatus(OrderStatusDao.TO_PAY);
+        when(orderRequestRepository.findById("id-1")).thenReturn(Optional.of(orderRequestDao));
+        when(orderRequestMapper.fromDao(orderRequestDao)).thenReturn(orderRequest);
         assertDoesNotThrow(() -> orderRequestManagerValidator.validatePayOrderRequest("id-1"));
 
     }

@@ -1,8 +1,10 @@
 package com.fcivillini.awesomePizzaManagerCore.validator.impl;
 
+import com.fcivillini.awesomePizzaManagerCore.mapper.OrderRequestMapper;
+import com.fcivillini.awesomePizzaManagerCore.model.OrderRequest;
 import com.fcivillini.awesomePizzaManagerCore.validator.PizzaManManagerValidator;
+import com.fcivillini.awesomePizzaManagerInterface.dto.EvolveOrderDto;
 import com.fcivillini.awesomePizzaManagerInterface.exc.PizzaException;
-import com.fcivillini.awesomePizzaManagerRepositoryInterface.dao.OrderRequestDao;
 import com.fcivillini.awesomePizzaManagerRepositoryInterface.dao.OrderStatusDao;
 import com.fcivillini.awesomePizzaManagerRepositoryInterface.repository.OrderRequestRepository;
 import lombok.Setter;
@@ -28,12 +30,20 @@ public class PizzaManManagerValidatorImpl implements PizzaManManagerValidator {
     @Autowired
     private OrderRequestRepository orderRequestRepository;
 
+    @Autowired
+    private OrderRequestMapper orderRequestMapper;
+
     @Override
-    public OrderRequestDao validateFindNewOrder() throws PizzaException {
+    public OrderRequest validateEvolveOrder() throws PizzaException {
         LocalDateTime now = LocalDateTime.now();
-        return orderRequestRepository.findFirstByCreationDate(getStartReservationTime(now), getEndReservationTime(now), OrderStatusDao.PENDING).orElseThrow(
+        return orderRequestMapper.fromDao(orderRequestRepository.findFirstByCreationDate(getStartReservationTime(now), getEndReservationTime(now), OrderStatusDao.PENDING).orElseThrow(
                 () -> new PizzaException("No new order found", HttpStatus.BAD_REQUEST)
-        );
+        ));
+    }
+
+    @Override
+    public OrderRequest validateEvolveOrder(EvolveOrderDto evolveOrderDto) {
+        return null;
     }
 
     protected LocalDateTime getEndReservationTime(LocalDateTime now) {

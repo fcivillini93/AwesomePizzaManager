@@ -1,10 +1,13 @@
 package com.fcivillini.awesomePizzaManagerCore.validator;
 
+import com.fcivillini.awesomePizzaManagerCore.model.OrderRequest;
+import com.fcivillini.awesomePizzaManagerInterface.dto.EvolveOrderDto;
 import com.fcivillini.awesomePizzaManagerInterface.exc.PizzaException;
-import com.fcivillini.awesomePizzaManagerRepositoryInterface.dao.OrderRequestDao;
+import jakarta.validation.Valid;
 
 public interface PizzaManManagerValidator {
 
-    OrderRequestDao validateFindNewOrder() throws PizzaException;
+    OrderRequest validateEvolveOrder() throws PizzaException;
 
+    OrderRequest validateEvolveOrder(@Valid EvolveOrderDto evolveOrderDto);
 }

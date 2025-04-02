@@ -2,7 +2,7 @@ package com.fcivillini.awesomePizzaManagerController.controller;
 
 import com.fcivillini.awesomePizzaManagerCore.mapper.OrderRequestMapper;
 import com.fcivillini.awesomePizzaManagerCore.model.OrderRequest;
-import com.fcivillini.awesomePizzaManagerCore.service.impl.PizzaManManagerService;
+import com.fcivillini.awesomePizzaManagerCore.service.PizzaManManagerService;
 import com.fcivillini.awesomePizzaManagerCore.validator.PizzaManManagerValidator;
 import com.fcivillini.awesomePizzaManagerInterface.dto.OrderRequestDto;
 import lombok.SneakyThrows;
@@ -50,5 +50,7 @@ class PizzaManControllerTest {
         assertEquals(new ResponseEntity<>(orderRequestDto, HttpStatus.OK), pizzaManController.getNewOrder());
 
     }
+
+
 
 }

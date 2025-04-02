@@ -2,6 +2,7 @@ package com.fcivillini.awesomePizzaManagerCore.service.impl;
 
 import com.fcivillini.awesomePizzaManagerCore.mapper.OrderRequestMapper;
 import com.fcivillini.awesomePizzaManagerCore.model.OrderRequest;
+import com.fcivillini.awesomePizzaManagerCore.service.PizzaManManagerService;
 import com.fcivillini.awesomePizzaManagerInterface.exc.PizzaException;
 import com.fcivillini.awesomePizzaManagerRepositoryInterface.dao.OrderStatusDao;
 import com.fcivillini.awesomePizzaManagerRepositoryInterface.repository.OrderRequestRepository;
@@ -37,6 +38,11 @@ public class PizzaManManagerManagerServiceImpl implements PizzaManManagerService
         return orderRequestMapper.fromDao(orderRequestRepository.findFirstByCreationDate(getStartReservationTime(now), getEndReservationTime(now), OrderStatusDao.PENDING).orElseThrow(
                 () -> new PizzaException("No new order found", HttpStatus.BAD_REQUEST)
         ));
+    }
+
+    @Override
+    public OrderRequest evolveOrder(OrderRequest orderRequest) {
+        return null;
     }
 
     protected LocalDateTime getEndReservationTime(LocalDateTime now) {

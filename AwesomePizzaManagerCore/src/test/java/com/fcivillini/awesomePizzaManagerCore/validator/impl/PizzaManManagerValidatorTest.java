@@ -28,6 +28,8 @@ import static org.mockito.Mockito.when;
 class PizzaManManagerValidatorTest {
 
     @Mock
+    private OrderRequestMapper orderRequestMapper;
+    @Mock
     private OrderRequestRepository orderRequestRepository;
 
     @InjectMocks
@@ -36,7 +38,7 @@ class PizzaManManagerValidatorTest {
     @BeforeEach
     void setUp() {
         pizzaManManagerValidator.setIntervalMinutes(15);
-        Mockito.clearInvocations(orderRequestRepository);
+        Mockito.clearInvocations(orderRequestRepository, orderRequestMapper);
     }
 
     @Test
@@ -55,7 +57,7 @@ class PizzaManManagerValidatorTest {
 
         try {
             when(orderRequestRepository.findFirstByCreationDate(any(LocalDateTime.class), any(LocalDateTime.class), any(OrderStatusDao.class))).thenReturn(Optional.empty());
-            pizzaManManagerValidator.validateFindNewOrder();
+            pizzaManManagerValidator.validateEvolveOrder();
             fail("should throw exception");
         } catch (PizzaException e) {
             assertEquals("No new order found", e.getMessage());
@@ -63,7 +65,9 @@ class PizzaManManagerValidatorTest {
         }
 
         OrderRequestDao orderRequestDao = new OrderRequestDao().setId("id-1");
+        OrderRequest orderRequest = new OrderRequest().setId("id-1");
         when(orderRequestRepository.findFirstByCreationDate(any(LocalDateTime.class), any(LocalDateTime.class), any(OrderStatusDao.class))).thenReturn(Optional.of(orderRequestDao));
-        assertEquals(orderRequestDao, pizzaManManagerValidator.validateFindNewOrder());
+        when(orderRequestMapper.fromDao(orderRequestDao)).thenReturn(orderRequest);
+        assertEquals(orderRequest, pizzaManManagerValidator.validateEvolveOrder());
     }
 }
