@@ -8,5 +8,5 @@ public interface PizzaManManagerService {
 
     OrderRequest findNewOrder() throws PizzaException;
 
-    OrderRequest evolveOrder(OrderRequest orderRequest, EvolveOrder evolveOrder);
+    OrderRequest evolveOrder(OrderRequest orderRequest, EvolveOrder evolveOrder) throws PizzaException;
 }
