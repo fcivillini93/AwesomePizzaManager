@@ -35,7 +35,7 @@ public class PizzaManController implements PizzaManProvider {
 
     @Override
     public ResponseEntity<OrderRequestDto> getNewOrder() throws PizzaException {
-        pizzaManManagerValidator.validateEvolveOrder();
+        pizzaManManagerValidator.findNewOrder();
         return new ResponseEntity<>(orderRequestMapper.toDto(pizzaManManagerService.findNewOrder()), HttpStatus.OK);
     }
 

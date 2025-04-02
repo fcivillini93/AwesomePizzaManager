@@ -6,7 +6,7 @@ import com.fcivillini.awesomePizzaManagerInterface.exc.PizzaException;
 
 public interface PizzaManManagerValidator {
 
-    OrderRequest validateEvolveOrder() throws PizzaException;
+    OrderRequest findNewOrder() throws PizzaException;
 
-    OrderRequest validateEvolveOrder(EvolveOrder evolveOrderDto);
+    OrderRequest validateEvolveOrder(EvolveOrder evolveOrderDto) throws PizzaException;
 }
